@@ -54,7 +54,7 @@ func main() {
 
 	dir, name, err := getDirAndFile(outputPath)
 	if err != nil {
-		fatal("error parsing output path:", err)
+		fatal("error while checking output path:", err)
 	} else if err := os.MkdirAll(dir, 0755); err != nil {
 		fatal("error creating output dir:", err)
 	}
@@ -83,7 +83,7 @@ func getDirAndFile(path string) (dir string, name string, err error) {
 	} else if outputPath == "." {
 		return abs, "", nil
 	} else if info, err := os.Stat(name); err == nil && info.IsDir() {
-		return abs, "", nil
+		return abs, "", errors.New("the path should specify a file, not dir")
 	}
 	dir = filepath.Dir(abs)
 	name = filepath.Base(abs)
