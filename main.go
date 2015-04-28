@@ -104,7 +104,7 @@ func runDockerGoBuild(spec *buildSpec, stdout, stderr io.Writer) error {
 		Path: spec.dockerPath,
 		Args: []string{
 			spec.dockerPath,
-			"run", "-it", "--rm",
+			"run", "-a", "stdout", "-a", "stderr", "--rm",
 			"-v", fmt.Sprintf("%s:/go", spec.goPath),
 			"-v", fmt.Sprintf("%s:/data", spec.outDir),
 			"golang", "go", "build",
